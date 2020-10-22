@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <title>Display map and navigation controls</title>
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body onload="mapFlyTo();">
+    <div id="container_map" class="container_map">
+      <div class="container_map-menu">
+        <div class="container_map-menu--left">
+          <div class="">
+            <p class="filter-p">Экспонент:</p>
+            <select name="сompanies" id="сompanies">
+              <option value="all">Все экспонаты</option>
+              <option value="1">Компания 1</option>
+              <option value="2">Компания 2</option>
+              <option value="3">Компания 3</option>
+            </select>
+          </div>
+          <p class="filter-p">Отрасли городского хозяйства:</p>
+          <nav id="filter-group" class="filter-group filter-group-scroll">
+            <label for="cityGovernment" class="filter-group_container"
+              >Городское управление
+              <input type="checkbox" id="cityGovernment" checked="checked" />
+              <span class="filter-group_container-checkmark"></span>
+            </label>
+            <label for="education" class="filter-group_container"
+              >Образование
+              <input type="checkbox" id="education" checked="checked" />
+              <span class="filter-group_container-checkmark"></span>
+            </label>
+            <label for="scientificAndInnovativeActivities" class="filter-group_container"
+              >Научная и инновационная деятельность
+              <input type="checkbox" id="scientificAndInnovativeActivities" checked="checked" />
+              <span class="filter-group_container-checkmark"></span>
+            </label>
+            <label for="transport" class="filter-group_container"
+              >Транспорт
+              <input type="checkbox" id="transport" checked="checked" />
+              <span class="filter-group_container-checkmark"></span>
+            </label>
+            <label
+              for="energy"
+              class="filter-group_container"
+              >Энергетика
+              <input
+                type="checkbox"
+                id="energy"
+                checked="checked"
+              />
+              <span class="filter-group_container-checkmark"></span>
+            </label>
+            <label
+              for="healthCare"
+              class="filter-group_container"
+              >Здравоохранение 
+              <input
+                type="checkbox"
+                id="healthCare"
+                checked="checked"
+              />
+              <span class="filter-group_container-checkmark"></span>
+            </label>
+            <label for="urbanEnvironmentAndLandscaping" class="filter-group_container"
+              >Городская среда и благоустройство
+              <input type="checkbox" id="urbanEnvironmentAndLandscaping" checked="checked" />
+              <span class="filter-group_container-checkmark"></span>
+            </label>
+            <label for="DHU" class="filter-group_container"
+              >ЖКХ
+              <input type="checkbox" id="DHU" checked="checked" />
+              <span class="filter-group_container-checkmark"></span>
+            </label>
+            <label for="designAndConstruction" class="filter-group_container"
+              >Проектирование и строительство
+              <input type="checkbox" id="designAndConstruction" checked="checked" />
+              <span class="filter-group_container-checkmark"></span>
+            </label>
+            <label for="tourismAndService" class="filter-group_container"
+              >Туризм и сервис
+              <input type="checkbox" id="tourismAndService" checked="checked" />
+              <span class="filter-group_container-checkmark"></span>
+            </label>
+            <label for="ITAndArtificialIntelligence" class="filter-group_container"
+              >IT и искусственный интеллект
+              <input type="checkbox" id="ITAndArtificialIntelligence" checked="checked" />
+              <span class="filter-group_container-checkmark"></span>
+            </label>
+            <label for="urbanCommunities" class="filter-group_container"
+              >Городские сообщества
+              <input type="checkbox" id="urbanCommunities" checked="checked" />
+              <span class="filter-group_container-checkmark"></span>
+            </label>
+            <label for="industrialProduction" class="filter-group_container"
+              >Промышленное производство
+              <input type="checkbox" id="industrialProduction" checked="checked" />
+              <span class="filter-group_container-checkmark"></span>
+            </label>
+            <label for="enterpriseManagement" class="filter-group_container"
+              >Управление предприятием
+              <input type="checkbox" id="enterpriseManagement" checked="checked" />
+              <span class="filter-group_container-checkmark"></span>
+            </label>
+            <label for="publicSafety" class="filter-group_container"
+              >Общественная безопасность
+              <input type="checkbox" id="publicSafety" checked="checked" />
+              <span class="filter-group_container-checkmark"></span>
+            </label>
+            <label for="environmentalAndTechnosphereSafety" class="filter-group_container"
+              >Экологическая и техносферная безопасность
+              <input type="checkbox" id="environmentalAndTechnosphereSafety" checked="checked" />
+              <span class="filter-group_container-checkmark"></span>
+            </label>
+          </nav>
+        </div>
+        <div id="map">
+          <div id="filter-wms" class="filter-wms">
+            <input
+              id="wms-Google-satellite-layer"
+              type="radio"
+              name="rtoggle"
+            />
+            <label for="wms-Google-satellite-layer">Google спутник</label>
+            <input id="wms-Google-layer" type="radio" name="rtoggle" />
+            <label for="wms-Google-layer">Google карта</label>
+            <input id="wms-test-layer3" type="radio" name="rtoggle" />
+            <label for="wms-test-layer3">2ГИС</label>
+            <input
+              id="OSM"
+              type="radio"
+              name="rtoggle"
+              value="outdoors"
+              checked="checked"
+            />
+            <label for="OSM">OSM</label>
+            <input id="satellite" type="radio" name="rtoggle" />
+            <label for="satellite">USDA’s NAIP</label>
+          </div>
+        </div>
+        <div class = "container_map-menu--right">
+          <div class="filter-format">
+            <p class="filter-p">Стадия реализации проекта:</p>
+            <label for="pilotProject" class="filter-group_container"
+              >Пилотный проект
+              <input id="pilotProject" type="checkbox" checked="checked" />
+              <span class="filter-group_container-checkmark"></span>
+            </label>
+            <label for="promisingProject" class="filter-group_container"
+              >Перспективный проект
+              <input id="promisingProject" type="checkbox" checked="checked" />
+              <span class="filter-group_container-checkmark"></span>
+            </label>
+            <label for="finishedProducts" class="filter-group_container"
+              >Готовая продукция
+              <input id="finishedProducts" type="checkbox" checked="checked" />
+              <span class="filter-group_container-checkmark"></span>
+            </label>
+          </div>
+          <div class="filter-format">
+            <p class="filter-p">Тип экспоната:</p>
+            <label for="dModel" class="filter-group_container"
+              >3D модель
+              <input id="dModel" type="checkbox" checked="checked" />
+              <span class="filter-group_container-checkmark"></span>
+            </label>
+            <label for="geospatialModel" class="filter-group_container"
+              >Геопространственная модель
+              <input id="geospatialModel" type="checkbox" checked="checked" />
+              <span class="filter-group_container-checkmark"></span>
+            </label>
+            <label for="virtualTour" class="filter-group_container"
+              >Виртуальная экскурсия
+              <input id="virtualTour" type="checkbox" checked="checked" />
+              <span class="filter-group_container-checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/data.js"></script>
+    <script src="js/scripts.js"></script>
+  </body>
+</html>
